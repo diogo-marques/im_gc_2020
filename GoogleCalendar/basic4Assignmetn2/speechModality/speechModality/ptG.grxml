@@ -1,0 +1,92 @@
+﻿<?xml version="1.0"?>
+<grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+	<rule id="rootRule" scope="public">
+    <!--<item>
+      <item>
+        <ruleref uri="#object"/>
+        <tag>out.shape=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri="#color"/>
+        <tag>out.color=rules.latest();</tag>
+      </item>
+    </item>-->
+    <item>
+      <item>
+        <ruleref uri="#createEvent"/>
+        <!--<tag>out.event=rules.latest();</tag>-->
+      </item>
+      
+    </item>
+	</rule>
+  <rule id="createEvent">
+    <one-of>
+      <item>Tenho um</item>
+      <item>Tenho uma</item>
+    </one-of>
+    <item>
+      <ruleref uri="#eventType"/>
+      <tag>out.eventType=rules.latest();</tag>
+    </item>
+    <item repeat="0-1">
+      no
+    </item>
+    <item>
+      dia
+    </item>
+    <item>
+      <ruleref uri="#date"/>
+    </item>
+  </rule>
+  <rule id="eventType">
+    <one-of>
+      <item>jantar<tag>out="DINNER"</tag></item>
+      <item>reuniâo<tag>out="MEETING"</tag></item>
+      <item>almoço<tag>out="LUNCH"</tag></item>
+      <item>festa<tag>out="PARTY"</tag></item>
+    </one-of>
+  </rule>
+  <rule id ="date">
+    <item>
+      <ruleref uri="#day"/>
+      <tag>out.day=rules.latest();</tag>
+    </item>
+    <item>de</item>
+    <item>
+      <ruleref uri="#month"/>
+      <tag>out.month=rules.latest();</tag>
+    </item>
+  </rule>
+  <rule id="day">
+    <one-of>
+      <item>
+        um<tag>out="1"</tag>
+      </item>
+      <item>
+        dois<tag>out="2"</tag>
+      </item>
+      <item>
+        três<tag>out="3"</tag>
+      </item>
+      <item>
+        quatro<tag>out="4"</tag>
+      </item>
+      <item>
+        cinco<tag>out="5"</tag>
+      </item>
+      <item>
+        seis<tag>out="6"</tag>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="month">
+    <one-of>
+      <item>
+        abril<tag>out="APRIL"</tag>
+      </item>
+      <item>
+        maio<tag>out="MAY"</tag>
+      </item>
+    </one-of>
+  </rule>
+</grammar>

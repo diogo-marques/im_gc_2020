@@ -1,0 +1,6 @@
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\x64\Debug\speechModality.csprojAssemblyReference.cache
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\x64\Debug\MainWindow.g.cs
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\x64\Debug\App.g.cs
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\x64\Debug\speechModality_Content.g.cs
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\x64\Debug\speechModality_MarkupCompile.cache
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\x64\Debug\speechModality_MarkupCompile.lref

@@ -1,0 +1,17 @@
+﻿<Window x:Class="AppGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppGui"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="169.052" Width="240.116">
+    <Grid>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Rectangle x:Name="rectangle" Width="50" Height="50" Fill="Gray" Margin="10"></Rectangle>
+            <Ellipse x:Name="circle" Width="50" Height="50" Fill="Gray" Margin="10"></Ellipse>
+            <Polygon x:Name="triangle" Width="50" Height="50" Fill="Gray" Points="25,0 50,50 0,50" Margin="10"></Polygon>
+        </StackPanel>
+
+    </Grid>
+</Window>

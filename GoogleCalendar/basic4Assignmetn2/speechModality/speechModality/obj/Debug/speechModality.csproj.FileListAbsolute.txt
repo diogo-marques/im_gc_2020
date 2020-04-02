@@ -1,0 +1,121 @@
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\bin\Debug\speechModality.exe.config
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\bin\Debug\speechModality.exe
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\bin\Debug\speechModality.pdb
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\bin\Debug\Microsoft.Speech.dll
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\speechModality.csprojResolveAssemblyReference.cache
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\MainWindow.g.cs
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\App.g.cs
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.cache
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.lref
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\MainWindow.baml
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\speechModality.g.resources
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\speechModality.Properties.Resources.resources
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\speechModality.csproj.GenerateResource.Cache
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\speechModality.exe
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\speechModality.pdb
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\bin\Debug\ptG.grxml
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\obj\Debug\speechModality_Content.g.cs
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\bin\Debug\mmisharp.dll
+c:\users\nunof\documents\visual studio 2017\Projects\speechModality\speechModality\bin\Debug\mmisharp.pdb
+C:\Users\AJST\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\speechModality.exe.config
+C:\Users\AJST\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.exe
+C:\Users\AJST\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.pdb
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\ptG.grxml
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\speechModality.exe.config
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\speechModality.exe
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\speechModality.pdb
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\mmisharp.dll
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\mmisharp.pdb
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.csprojResolveAssemblyReference.cache
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\MainWindow.g.cs
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\App.g.cs
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality_Content.g.cs
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.cache
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.lref
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\MainWindow.baml
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.g.resources
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.Properties.Resources.resources
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.csproj.GenerateResource.Cache
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.csproj.CoreCompileInputs.cache
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.exe
+D:\cloud\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.pdb
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\speechModality.exe.config
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.exe
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.pdb
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\ptG.grxml
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\speechModality.exe
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\speechModality.pdb
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\Microsoft.Speech.dll
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\mmisharp.dll
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\bin\Debug\mmisharp.pdb
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.csprojResolveAssemblyReference.cache
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\MainWindow.g.cs
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\App.g.cs
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality_Content.g.cs
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.cache
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.lref
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\MainWindow.baml
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.g.resources
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.Properties.Resources.resources
+C:\Users\nunof\Dropbox\SGH\IM\speechModality\speechModality\obj\Debug\speechModality.csproj.GenerateResource.Cache
+C:\Users\nunof\Dropbox\SGH\IM\marco2018\speechModality\speechModality\bin\Debug\speechModality.exe.config
+C:\Users\nunof\Dropbox\SGH\IM\marco2018\speechModality\speechModality\obj\Debug\speechModality.exe
+C:\Users\nunof\Dropbox\SGH\IM\marco2018\speechModality\speechModality\obj\Debug\speechModality.pdb
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\bin\Debug\ptG.grxml
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\bin\Debug\speechModality.exe.config
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\bin\Debug\speechModality.exe
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\bin\Debug\speechModality.pdb
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\bin\Debug\mmisharp.pdb
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\speechModality.csprojResolveAssemblyReference.cache
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\MainWindow.g.cs
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\App.g.cs
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\speechModality_Content.g.cs
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.cache
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.lref
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\MainWindow.baml
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\speechModality.g.resources
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\speechModality.Properties.Resources.resources
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\speechModality.csproj.GenerateResource.Cache
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\speechModality.csproj.CoreCompileInputs.cache
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\speechModality.exe
+C:\Users\AJST\Dropbox\IM-2017-2018-2ndSem\AULAS\AULA6-PRATICAL\forStudents\speechModality\speechModality\obj\Debug\speechModality.pdb
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\bin\Debug\ptG.grxml
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\bin\Debug\speechModality.exe.config
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\bin\Debug\speechModality.exe
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\bin\Debug\speechModality.pdb
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\bin\Debug\Microsoft.Speech.dll
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\bin\Debug\mmisharp.pdb
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.csprojAssemblyReference.cache
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\MainWindow.g.cs
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\App.g.cs
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality_Content.g.cs
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.cache
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.lref
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\MainWindow.baml
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.g.resources
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.Properties.Resources.resources
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.csproj.GenerateResource.cache
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.csproj.CoreCompileInputs.cache
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.csproj.CopyComplete
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.exe
+C:\Users\diogo\Desktop\IM\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.pdb
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\bin\Debug\ptG.grxml
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\bin\Debug\speechModality.exe.config
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\bin\Debug\speechModality.exe
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\bin\Debug\speechModality.pdb
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\bin\Debug\Microsoft.Speech.dll
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\bin\Debug\mmisharp.pdb
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.csprojAssemblyReference.cache
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\MainWindow.g.cs
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\App.g.cs
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality_Content.g.cs
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.cache
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality_MarkupCompile.lref
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\MainWindow.baml
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.g.resources
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.Properties.Resources.resources
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.csproj.GenerateResource.cache
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.csproj.CoreCompileInputs.cache
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.csproj.CopyComplete
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.exe
+C:\Users\diogo\Desktop\IM\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\Debug\speechModality.pdb

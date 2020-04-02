@@ -1,0 +1,16 @@
+MmiCommunication
+
+	MmiCommunication(string host, int port, string Uid, string modality)
+	Start()
+	Stop()
+	Send(string msg)
+
+	Message - Event
+
+LifeCycleEvents
+
+	LifeCycleEvents(string source, string target, string id, string medium, string mode)
+	NewContextRequest()
+	NewStartRequest(string start, string end, float confidence, string obj)
+	NewStartResponse(string status)
+	ExtensionNotification(string start, string end, float confidence, string obj)

@@ -1,39 +1,92 @@
 ﻿<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
 	<rule id="rootRule" scope="public">
-    <!--<item>
+    <one-of>
       <item>
-        <ruleref uri="#object"/>
-        <tag>out.shape=rules.latest();</tag>
+        <item>
+          <ruleref uri="#createEvent"/>
+          <!--<tag>out.event=rules.latest();</tag>-->
+        </item>
       </item>
       <item>
-        <ruleref uri="#color"/>
-        <tag>out.color=rules.latest();</tag>
+        <ruleref uri="#listEvents"/>
       </item>
-    </item>-->
-    <item>
       <item>
-        <ruleref uri="#createEvent"/>
-        <!--<tag>out.event=rules.latest();</tag>-->
+        <ruleref uri="#cancelEvent"/>
       </item>
-      
+      <item>
+        <ruleref uri="#dayAvailability"/>
+      </item>
+    </one-of>
+    <item repeat="0-1">
+      por favor
     </item>
+
 	</rule>
-	<rule id="object">
-	  <one-of>
-		<item>quadrado<tag>out="SQUARE"</tag></item>
-		<item>círculo<tag>out="CIRCLE"</tag></item>
-		<item>triângulo<tag>out="TRIANGLE"</tag></item>
-	  </one-of>
-	</rule>
-	<rule id="color">
-	  <one-of>
-		<item>verde<tag>out="GREEN"</tag></item>
-		<item>azul<tag>out="BLUE"</tag></item>
-		<item>vermelho<tag>out="RED"</tag></item>
-	  </one-of>
-	</rule>
+  <rule id="dayAvailability">
+    <tag>
+      out.type = "AVAIL_DAY";
+    </tag>
+    <item>
+      Estou livre no dia
+    </item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+  </rule>
+  <rule id="cancelEvent">
+    <tag>
+      out.type = "CANCEL_EVENT";
+    </tag>
+    <item>
+      Não vou poder ir
+    </item>
+    <one-of>
+      <item>ao</item>
+      <item>à</item>
+    </one-of>
+    <item>
+      <ruleref uri="#eventType"/>
+      <tag>out.eventType=rules.latest();</tag>
+    </item>
+    <item>do dia</item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+  </rule>
+  <rule id="listEvents">
+    <tag>
+      out.type = "LIST_EVENTS";
+    </tag>
+    <one-of>
+      <item>
+        Que eventos tenho
+      </item>
+      <item>O que tenho de fazer</item>
+    </one-of>
+    <item repeat="0-1">
+      no
+    </item>
+    <item>
+      dia
+    </item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+  </rule>
   <rule id="createEvent">
+    <tag>
+      out.type = "CREATE_EVENT";
+    </tag>
     <one-of>
       <item>Tenho um</item>
       <item>Tenho uma</item>
@@ -50,14 +103,17 @@
     </item>
     <item>
       <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
     </item>
   </rule>
   <rule id="eventType">
     <one-of>
-      <item>Jantar<tag>out="DINNER"</tag></item>
-      <item>Reuniâo<tag>out="MEETING"</tag></item>
-      <item>Almoço<tag>out="LUNCH"</tag></item>
-      <item>Festa<tag>out="PARTY"</tag></item>
+      <item>jantar<tag>out="DINNER"</tag></item>
+      <item>reunião<tag>out="MEETING"</tag></item>
+      <item>almoço<tag>out="LUNCH"</tag></item>
+      <item>festa<tag>out="PARTY"</tag></item>
     </one-of>
   </rule>
   <rule id ="date">
@@ -70,6 +126,9 @@
       <ruleref uri="#month"/>
       <tag>out.month=rules.latest();</tag>
     </item>
+    <tag>
+      out = out.day +" "+ out.month;
+    </tag>
   </rule>
   <rule id="day">
     <one-of>
@@ -91,15 +150,57 @@
       <item>
         seis<tag>out="6"</tag>
       </item>
+      <item>
+        sete<tag>out="7"</tag>
+      </item>
+      <item>
+        oito<tag>out="8"</tag>
+      </item>
+      <item>
+        nove<tag>out="9"</tag>
+      </item>
+      <item>
+        dez<tag>out="10"</tag>
+      </item>
+      <item>
+        onze<tag>out="11"</tag>
+      </item>
+      <item>
+        doze<tag>out="12"</tag>
+      </item>
+      <item>
+        treze<tag>out="13"</tag>
+      </item>
+      <item>
+        catorze<tag>out="14"</tag>
+      </item>
+      <item>
+        quinze<tag>out="15"</tag>
+      </item>
+      <item>
+        dezasseis<tag>out="16"</tag>
+      </item>
+      <item>
+        dezassete<tag>out="17"</tag>
+      </item>
+      <item>
+        dezoito<tag>out="18"</tag>
+      </item>
+      <item>
+        dezanove<tag>out="19"</tag>
+      </item>
+      <item>
+        vinte<tag>out="20"</tag>
+      </item>
     </one-of>
   </rule>
   <rule id="month">
     <one-of>
       <item>
-        abril<tag>out="APRIL"</tag>
+        abril<tag>out="4"</tag>
       </item>
       <item>
-        maio<tag>out="MAY"</tag>
+        maio<tag>out="5"</tag>
       </item>
     </one-of>
   </rule>

@@ -24,6 +24,9 @@
 
 	</rule>
   <rule id="dayAvailability">
+    <!--
+      Estou livre no dia [data].
+    -->
     <tag>
       out.type = "AVAIL_DAY";
     </tag>
@@ -38,6 +41,9 @@
     </item>
   </rule>
   <rule id="cancelEvent">
+    <!--
+      Não vou porder ir ao/à [evento] do dia [data].
+    -->
     <tag>
       out.type = "CANCEL_EVENT";
     </tag>

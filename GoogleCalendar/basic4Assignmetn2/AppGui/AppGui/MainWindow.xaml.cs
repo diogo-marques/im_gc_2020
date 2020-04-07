@@ -92,7 +92,7 @@ namespace AppGui
             Console.WriteLine("Event created: {0}", createdEvent.HtmlLink);
         }
 
-        private Events getNextEvents(CalendarService service, int maxResults)
+        private Events getNextEvents(int maxResults)
         {
             // Define parameters of request.
             
@@ -109,7 +109,33 @@ namespace AppGui
             return events;
         }
 
+        private String getEventId(String summary, DateTime start)
+        {
+            Events events = getNextEvents(100);
+            if (events.Items != null && events.Items.Count > 0)
+            {
+                Console.WriteLine("Upcoming events:");
+                foreach (var eventItem in events.Items)
+                {
+                    string when = eventItem.Start.DateTime.ToString();
+                    if (String.IsNullOrEmpty(when))
+                    {
+                        when = eventItem.Start.Date;
+                    }
+                    if ((DateTime.Compare((DateTime)(eventItem.Start.DateTime), start) == 0) && eventItem.Summary == summary)
+                    {
+                        return eventItem.Id;
+                    }
 
+                }
+            }
+            return "NO_EVENT";
+        }
+
+        private void cancelEvent(String id)
+        {
+            service.Events.Delete("primary", id).Execute();
+        }
 
         private void MmiC_Message(object sender, MmiEventArgs e )
         {
@@ -140,7 +166,7 @@ namespace AppGui
                     string[] date1 = ((string)json.recognized[1].ToString()).Split(' ');
                     DateTime start1 = new DateTime(2020, Int32.Parse(date1[1]), Int32.Parse(date1[0]), 00, 00, 00);
                     DateTime end1 = new DateTime(2020, Int32.Parse(date1[1]), Int32.Parse(date1[0]), 23, 59, 59);
-                    Events events = getNextEvents(service, 100);
+                    Events events = getNextEvents(100);
                     if (events.Items != null && events.Items.Count > 0)
                     {
                         Console.WriteLine("Upcoming events:");
@@ -165,6 +191,13 @@ namespace AppGui
                     
                     break;
                 case "CANCEL_EVENT":
+                    string[] date2 = ((string)json.recognized[2].ToString()).Split(' ');
+                    DateTime start2 = new DateTime(2020, Int32.Parse(date2[1]), Int32.Parse(date2[0]), 10, 00, 00);
+                    String eventID = getEventId((string)json.recognized[1].ToString(), start2);
+                    if(eventID != "NO_EVENT")
+                    {
+                        cancelEvent(eventID);
+                    }
                     break;
             }
 

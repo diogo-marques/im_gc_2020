@@ -35,10 +35,10 @@ namespace AppGui
         static string[] Scopes = { CalendarService.Scope.Calendar };
         static string ApplicationName = "Google Calendar API .NET Quickstart";
         CalendarService service;
+        private Tts t = new Tts();
 
         public MainWindow()
         {
-            
             UserCredential credentials;
 
             using (var stream =
@@ -90,6 +90,14 @@ namespace AppGui
             EventsResource.InsertRequest request = service.Events.Insert(newEvent, calendarId);
             Event createdEvent = request.Execute();
             Console.WriteLine("Event created: {0}", createdEvent.HtmlLink);
+            Console.WriteLine(  "Summary: " + summary +
+                                "\nLocation: " + location +
+                                "\nDescription: " + desc + 
+                                "\nStart: " + start.DateTime +
+                                "\nEnd: " + end.Date);
+            t.Speak("Evento criado");
+            //t.Speak("Evento " + summary + " criado no dia ");
+            //t.SpeakDate(start.Date);
         }
 
         private Events getNextEvents(int maxResults)
@@ -135,6 +143,7 @@ namespace AppGui
         private void cancelEvent(String id)
         {
             service.Events.Delete("primary", id).Execute();
+            t.Speak("Evento cancelado");
         }
 
         private void MmiC_Message(object sender, MmiEventArgs e )

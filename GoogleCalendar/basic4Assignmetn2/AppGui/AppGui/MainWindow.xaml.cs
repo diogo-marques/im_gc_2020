@@ -146,6 +146,16 @@ namespace AppGui
             t.Speak("Evento cancelado");
         }
 
+        private void postponeEvent(String id, EventDateTime newDate, EventDateTime newEnd)
+        {
+            Console.WriteLine(id);
+            Event ev = service.Events.Get("primary", id).Execute();
+            ev.Start = newDate;
+            ev.End = newEnd;
+            service.Events.Update(ev, "primary", id).Execute();
+
+        }
+
         private void MmiC_Message(object sender, MmiEventArgs e )
         {
             Console.WriteLine(e.Message);
@@ -206,6 +216,59 @@ namespace AppGui
                     if(eventID != "NO_EVENT")
                     {
                         cancelEvent(eventID);
+                    }
+                    break;
+                case "AVAIL_DAY":
+                    Events avail_events = getNextEvents(100);
+                    string[] date3 = ((string)json.recognized[1].ToString()).Split(' ');
+                    DateTime start3 = new DateTime(2020, Int32.Parse(date3[1]), Int32.Parse(date3[0]), 00, 00, 00);
+                    DateTime end3 = new DateTime(2020, Int32.Parse(date3[1]), Int32.Parse(date3[0]), 23, 59, 59);
+                    bool avail = true;
+                    if (avail_events.Items != null && avail_events.Items.Count > 0)
+                    {
+                        Console.WriteLine("Upcoming events:");
+                        foreach (var eventItem in avail_events.Items)
+                        {
+                            string when = eventItem.Start.DateTime.ToString();
+                            if (String.IsNullOrEmpty(when))
+                            {
+                                when = eventItem.Start.Date;
+                            }
+                            if ((DateTime.Compare((DateTime)(eventItem.Start.DateTime), start3) > 0) && (DateTime.Compare((DateTime)(eventItem.Start.DateTime), end3) < 0))
+                            {
+                                avail = false;
+                                break;
+                            }
+
+                        }
+                    }
+                    if (avail)
+                    {
+                        t.Speak("Sim, não tem nenhum evento marcado neste dia.");
+                    }
+                    else
+                    {
+                        t.Speak("Tem eventos marcados neste dia.");
+                    }
+                    break;
+                case "POSTPONE_EVENT":
+                    string[] date4 = ((string)json.recognized[2].ToString()).Split(' ');
+                    string[] new_date4 = ((string)json.recognized[3].ToString()).Split(' ');
+                    DateTime start4 = new DateTime(2020, Int32.Parse(date4[1]), Int32.Parse(date4[0]), 10, 00, 00);
+                    EventDateTime new_start4 = new EventDateTime()
+                    {
+                        DateTime = new DateTime(2020, Int32.Parse(new_date4[1]), Int32.Parse(new_date4[0]), 10, 00, 00),
+                        TimeZone = "Europe/Lisbon",
+                    };
+                    EventDateTime new_end4 = new EventDateTime()
+                    {
+                        DateTime = new DateTime(2020, Int32.Parse(new_date4[1]), Int32.Parse(new_date4[0]), 11, 00, 00),
+                        TimeZone = "Europe/Lisbon",
+                    };
+                    String eventID4 = getEventId((string)json.recognized[1].ToString(), start4);
+                    if (eventID4 != "NO_EVENT")
+                    {
+                        postponeEvent(eventID4, new_start4, new_end4);
                     }
                     break;
             }

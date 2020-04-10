@@ -16,12 +16,47 @@
       <item>
         <ruleref uri="#dayAvailability"/>
       </item>
+      <item>
+        <ruleref uri="#postponeEvent"/>
+      </item>
     </one-of>
     <item repeat="0-1">
       por favor
     </item>
 
 	</rule>
+  <rule id="postponeEvent">
+    <!--
+      Adia o/a [evento] do dia [data] para o dia [data].
+    -->
+    <tag>
+      out.type = "POSTPONE_EVENT";
+    </tag>
+    <item>Adia</item>
+    <one-of>
+      <item>a</item>
+      <item>o</item>
+    </one-of>
+    <item>
+      <ruleref uri="#eventType"/>
+      <tag>out.eventType=rules.latest();</tag>
+    </item>
+    <item>do dia</item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+    <item>para o dia</item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.updatedate=rules.latest();
+      </tag>
+    </item>
+  </rule>
+    
   <rule id="dayAvailability">
     <!--
       Estou livre no dia [data].
@@ -66,6 +101,8 @@
     </item>
   </rule>
   <rule id="listEvents">
+    <!-- Que eventos tenho no dia [data]
+          O que tenho de fazer no dia [data]-->
     <tag>
       out.type = "LIST_EVENTS";
     </tag>
@@ -89,7 +126,7 @@
     </item>
   </rule>
   <rule id="createEvent">
-    <!-- Tenho um/uma [evento] "no" [data] às [hora] -->
+    <!-- Tenho um/uma [evento] "no" [data] "às/à/ao"/"do,das,da" [hora] -->
     <tag>
       out.type = "CREATE_EVENT";
     </tag>
@@ -115,18 +152,56 @@
     </item>
     <one-of>
       <item>
-        às
+        <one-of>
+          <item>
+            às
+          </item>
+          <item>
+            à
+          </item>
+          <item>
+            ao
+          </item>
+        </one-of>
       </item>
       <item>
-        à
+        <one-of>
+          <item>
+            do
+          </item>
+          <item>
+            da
+          </item>
+          <item>
+            das
+          </item>
+        </one-of>
       </item>
     </one-of>
-    
     <item>
        <ruleref uri="#hour"/>
       <tag>
-        out.hour=rules.latest();
+        out.starthour=rules.latest();
       </tag>
+    </item>
+    <item repeat="0-1">
+      <one-of>
+        <item>
+          às
+        </item>
+        <item>
+          à
+        </item>
+        <item>
+          ao
+        </item>
+      </one-of>
+      <item>
+         <ruleref uri="#hour"/>
+        <tag>
+          out.endhour=rules.latest();
+        </tag>
+      </item>
     </item>
   </rule>
   <rule id="eventType">
@@ -164,6 +239,10 @@
         meia noite
         <tag>out.hour= "0";</tag>
       </item>
+      <item>
+        meio dia
+        <tag>out.hour= "12";</tag>
+      </item>
     </one-of>
     <item repeat="0-1">
       horas
@@ -182,7 +261,7 @@
         </item>
         <item>
           um quarto
-          <tag>out.minutes="30";</tag>
+          <tag>out.minutes="15";</tag>
         </item>
       </one-of>
       <item repeat="0-1">

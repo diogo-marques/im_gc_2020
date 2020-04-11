@@ -72,6 +72,23 @@
         out.date=rules.latest();
       </tag>
     </item>
+    <one-of>
+      <item>
+        às
+      </item>
+      <item>
+        à
+      </item>
+      <item>
+        ao
+      </item>
+    </one-of>
+    <item>
+      <ruleref uri="#hour"/>
+      <tag>
+        out.starthour=rules.latest();
+      </tag>
+    </item>
     <item>para o dia</item>
     <item>
       <ruleref uri="#date"/>
@@ -100,7 +117,7 @@
   </rule>
   <rule id="cancelEvent">
     <!--
-      Não vou porder ir ao/à [evento] do dia [data].
+      Não vou porder ir ao/à [evento] do dia [data] à/às [hora].
     -->
     <tag>
       out.type = "CANCEL_EVENT";
@@ -121,6 +138,23 @@
       <ruleref uri="#date"/>
       <tag>
         out.date=rules.latest();
+      </tag>
+    </item>
+    <one-of>
+      <item>
+        às
+      </item>
+      <item>
+        à
+      </item>
+      <item>
+        ao
+      </item>
+    </one-of>
+    <item>
+      <ruleref uri="#hour"/>
+      <tag>
+        out.starthour=rules.latest();
       </tag>
     </item>
   </rule>
@@ -208,6 +242,9 @@
         out.starthour=rules.latest();
       </tag>
     </item>
+    <tag>
+      out.endhour="NO_HOUR";
+    </tag>
     <item repeat="0-1">
       <one-of>
         <item>

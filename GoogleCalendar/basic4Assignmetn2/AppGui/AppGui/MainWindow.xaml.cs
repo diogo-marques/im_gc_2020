@@ -122,7 +122,6 @@ namespace AppGui
             Events events = getNextEvents(100);
             if (events.Items != null && events.Items.Count > 0)
             {
-                Console.WriteLine("Upcoming events:");
                 foreach (var eventItem in events.Items)
                 {
                     string when = eventItem.Start.DateTime.ToString();
@@ -146,12 +145,24 @@ namespace AppGui
             
         }
 
-        private void postponeEvent(String id, EventDateTime newDate, EventDateTime newEnd)
+        private void postponeEvent(String id, string[] date)
         {
             Console.WriteLine(id);
             Event ev = service.Events.Get("primary", id).Execute();
-            ev.Start = newDate;
-            ev.End = newEnd;
+            DateTime s = (DateTime) ev.Start.DateTime;
+            DateTime e = (DateTime)ev.End.DateTime;
+            EventDateTime new_start = new EventDateTime()
+            {
+                DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), s.Hour, s.Minute, 00),
+                TimeZone = "Europe/Lisbon",
+            };
+            EventDateTime new_end = new EventDateTime()
+            {
+                DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), e.Hour, e.Minute, 00),
+                TimeZone = "Europe/Lisbon",
+            };
+            ev.Start = new_start;
+            ev.End = new_end;
             service.Events.Update(ev, "primary", id).Execute();
 
         }
@@ -169,14 +180,26 @@ namespace AppGui
             {
                 case "CREATE_EVENT":
                     string[] date = ((string)json.recognized[2].ToString()).Split(' ');
+                    string[] starthour = ((string)json.recognized[3].ToString()).Split(':');
                     EventDateTime start = new EventDateTime()
                     {
-                        DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), 10, 00, 00),
+                        DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), Int32.Parse(starthour[0]), Int32.Parse(starthour[1]), 00),
                         TimeZone = "Europe/Lisbon",
                     };
+                    String endhour_s = ((string)json.recognized[4].ToString());
+                    int[] endhour = new int[2];
+                    if(endhour_s == "NO_HOUR")
+                    {
+                        endhour[0] = Int32.Parse(starthour[0]) + 1;
+                        endhour[1] = Int32.Parse(starthour[1]) + 1;
+                    }
+                    else
+                    {
+                        endhour = Array.ConvertAll(endhour_s.Split(':'), int.Parse) ;
+                    }
                     EventDateTime end = new EventDateTime()
                     {
-                        DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), 11, 00, 00),
+                        DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), endhour[0], endhour[1], 00),
                         TimeZone = "Europe/Lisbon",
                     };
                     createEvent(service, (string)json.recognized[1].ToString(), "Aveiro", start, end, " ");
@@ -211,7 +234,8 @@ namespace AppGui
                     break;
                 case "CANCEL_EVENT":
                     string[] date2 = ((string)json.recognized[2].ToString()).Split(' ');
-                    DateTime start2 = new DateTime(2020, Int32.Parse(date2[1]), Int32.Parse(date2[0]), 10, 00, 00);
+                    string[] starthour2 = ((string)json.recognized[3].ToString()).Split(':');
+                    DateTime start2 = new DateTime(2020, Int32.Parse(date2[1]), Int32.Parse(date2[0]), Int32.Parse(starthour2[0]), Int32.Parse(starthour2[1]), 00);
                     String eventID = getEventId((string)json.recognized[1].ToString(), start2);
                     if(eventID != "NO_EVENT")
                     {
@@ -227,7 +251,6 @@ namespace AppGui
                     bool avail = true;
                     if (avail_events.Items != null && avail_events.Items.Count > 0)
                     {
-                        Console.WriteLine("Upcoming events:");
                         foreach (var eventItem in avail_events.Items)
                         {
                             string when = eventItem.Start.DateTime.ToString();
@@ -254,22 +277,14 @@ namespace AppGui
                     break;
                 case "POSTPONE_EVENT":
                     string[] date4 = ((string)json.recognized[2].ToString()).Split(' ');
-                    string[] new_date4 = ((string)json.recognized[3].ToString()).Split(' ');
-                    DateTime start4 = new DateTime(2020, Int32.Parse(date4[1]), Int32.Parse(date4[0]), 10, 00, 00);
-                    EventDateTime new_start4 = new EventDateTime()
-                    {
-                        DateTime = new DateTime(2020, Int32.Parse(new_date4[1]), Int32.Parse(new_date4[0]), 10, 00, 00),
-                        TimeZone = "Europe/Lisbon",
-                    };
-                    EventDateTime new_end4 = new EventDateTime()
-                    {
-                        DateTime = new DateTime(2020, Int32.Parse(new_date4[1]), Int32.Parse(new_date4[0]), 11, 00, 00),
-                        TimeZone = "Europe/Lisbon",
-                    };
+                    string[] starthour4 = ((string)json.recognized[3].ToString()).Split(':');
+                    string[] new_date4 = ((string)json.recognized[4].ToString()).Split(' ');
+                    DateTime start4 = new DateTime(2020, Int32.Parse(date4[1]), Int32.Parse(date4[0]), Int32.Parse(starthour4[0]), Int32.Parse(starthour4[1]), 00);
+                    
                     String eventID4 = getEventId((string)json.recognized[1].ToString(), start4);
                     if (eventID4 != "NO_EVENT")
                     {
-                        postponeEvent(eventID4, new_start4, new_end4);
+                        postponeEvent(eventID4, new_date4);
                     }
                     break;
                 case "CANCEL_EVENTS_DAY":
@@ -280,7 +295,6 @@ namespace AppGui
                     int count = 0;
                     if (events5.Items != null && events5.Items.Count > 0)
                     {
-                        Console.WriteLine("Upcoming events:");
                         foreach (var eventItem in events5.Items)
                         {
                             string when = eventItem.Start.DateTime.ToString();

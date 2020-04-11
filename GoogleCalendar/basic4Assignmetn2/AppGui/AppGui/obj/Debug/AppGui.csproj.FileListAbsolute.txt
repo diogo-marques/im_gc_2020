@@ -146,7 +146,6 @@ C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\App
 C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\bin\Debug\Google.Apis.Calendar.v3.xml
 C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\bin\Debug\Google.Apis.Core.pdb
 C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\bin\Debug\Google.Apis.Core.xml
-C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\bin\Debug\mmisharp.pdb
 C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\bin\Debug\Newtonsoft.Json.xml
 C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\obj\Debug\AppGui.csprojAssemblyReference.cache
 C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\obj\Debug\MainWindow.g.cs
@@ -161,3 +160,7 @@ C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\App
 C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\obj\Debug\AppGui.csproj.CopyComplete
 C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\obj\Debug\AppGui.exe
 C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\obj\Debug\AppGui.pdb
+C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\bin\Debug\Tts.cs
+C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\bin\Debug\Microsoft.Speech.dll
+C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\bin\Debug\SpeechRecognizer.cs
+C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\AppGui\AppGui\bin\Debug\mmisharp.dll

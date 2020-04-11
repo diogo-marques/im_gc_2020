@@ -1,0 +1,667 @@
+﻿<?xml version="1.0"?>
+<grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+	<rule id="rootRule" scope="public">
+    <one-of>
+      <item>
+        <item>
+          <ruleref uri="#createEvent"/>
+        </item>
+      </item>
+      <item>
+        <ruleref uri="#listEvents"/>
+      </item>
+      <item>
+        <ruleref uri="#cancelEvent"/>
+      </item>
+      <item>
+        <ruleref uri="#dayAvailability"/>
+      </item>
+      <item>
+        <ruleref uri="#postponeEvent"/>
+      </item>
+    </one-of>
+    <item repeat="0-1">
+      por favor
+    </item>
+
+	</rule>
+  <rule id="postponeEvent">
+    <!--
+      Adia o/a [evento] do dia [data] para o dia [data].
+    -->
+    <tag>
+      out.type = "POSTPONE_EVENT";
+    </tag>
+    <item>Adia</item>
+    <one-of>
+      <item>a</item>
+      <item>o</item>
+    </one-of>
+    <item>
+      <ruleref uri="#eventType"/>
+      <tag>out.eventType=rules.latest();</tag>
+    </item>
+    <item>do dia</item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+    <item>para o dia</item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.updatedate=rules.latest();
+      </tag>
+    </item>
+  </rule>
+    
+  <rule id="dayAvailability">
+    <!--
+      Estou livre no dia [data].
+    -->
+    <tag>
+      out.type = "AVAIL_DAY";
+    </tag>
+    <item>
+      Estou livre no dia
+    </item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+  </rule>
+  <rule id="cancelEvent">
+    <!--
+      Não vou porder ir ao/à [evento] do dia [data].
+    -->
+    <tag>
+      out.type = "CANCEL_EVENT";
+    </tag>
+    <item>
+      Não vou poder ir
+    </item>
+    <one-of>
+      <item>ao</item>
+      <item>à</item>
+    </one-of>
+    <item>
+      <ruleref uri="#eventType"/>
+      <tag>out.eventType=rules.latest();</tag>
+    </item>
+    <item>do dia</item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+  </rule>
+  <rule id="listEvents">
+    <!-- Que eventos tenho no dia [data]
+          O que tenho de fazer no dia [data]-->
+    <tag>
+      out.type = "LIST_EVENTS";
+    </tag>
+    <one-of>
+      <item>
+        Que eventos tenho
+      </item>
+      <item>O que tenho de fazer</item>
+    </one-of>
+    <item repeat="0-1">
+      no
+    </item>
+    <item>
+      dia
+    </item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+  </rule>
+  <rule id="createEvent">
+    <!-- Tenho um/uma [evento] "no" [data] "às/à/ao"/"do,das,da" [hora] -->
+    <tag>
+      out.type = "CREATE_EVENT";
+    </tag>
+    <one-of>
+      <item>Tenho um</item>
+      <item>Tenho uma</item>
+    </one-of>
+    <item>
+      <ruleref uri="#eventType"/>
+      <tag>out.eventType=rules.latest();</tag>
+    </item>
+    <item repeat="0-1">
+      no
+    </item>
+    <item>
+      dia
+    </item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+    <one-of>
+      <item>
+        <one-of>
+          <item>
+            às
+          </item>
+          <item>
+            à
+          </item>
+          <item>
+            ao
+          </item>
+        </one-of>
+      </item>
+      <item>
+        <one-of>
+          <item>
+            do
+          </item>
+          <item>
+            da
+          </item>
+          <item>
+            das
+          </item>
+        </one-of>
+      </item>
+    </one-of>
+    <item>
+       <ruleref uri="#hour"/>
+      <tag>
+        out.starthour=rules.latest();
+      </tag>
+    </item>
+    <item repeat="0-1">
+      <one-of>
+        <item>
+          às
+        </item>
+        <item>
+          à
+        </item>
+        <item>
+          ao
+        </item>
+      </one-of>
+      <item>
+         <ruleref uri="#hour"/>
+        <tag>
+          out.endhour=rules.latest();
+        </tag>
+      </item>
+    </item>
+  </rule>
+  <rule id="eventType">
+    <one-of>
+      <item>jantar<tag>out="DINNER"</tag></item>
+      <item>reunião<tag>out="MEETING"</tag></item>
+      <item>almoço<tag>out="LUNCH"</tag></item>
+      <item>festa<tag>out="PARTY"</tag></item>
+    </one-of>
+  </rule>
+  <rule id ="date">
+    <!-- Formato data -  [dia] de [mês] -->
+    <item>
+      <ruleref uri="#day"/>
+      <tag>out.day=rules.latest();</tag>
+    </item>
+    <item>de</item>
+    <item>
+      <ruleref uri="#month"/>
+      <tag>out.month=rules.latest();</tag>
+    </item>
+    <tag>
+      out = out.day +" "+ out.month;
+    </tag>
+  </rule>
+  
+  <rule id="hour">
+    <!-- hora - hora e minutos-->
+    <one-of>
+      <item>
+        <ruleref uri="#hours_numbers"/>
+        <tag>out.hour=rules.latest();</tag>
+      </item>
+      <item>
+        meia noite
+        <tag>out.hour= "0";</tag>
+      </item>
+      <item>
+        meio dia
+        <tag>out.hour= "12";</tag>
+      </item>
+    </one-of>
+    <item repeat="0-1">
+      horas
+    </item>
+    <tag>out.minutes = "0"</tag>
+    <item repeat="0-1">
+      <item>e</item>
+      <one-of>
+        <item>
+          <ruleref uri="#minutes_numbers"/>
+          <tag>out.minutes=rules.latest();</tag>
+        </item>
+        <item>
+          meia
+          <tag>out.minutes="30";</tag>
+        </item>
+        <item>
+          um quarto
+          <tag>out.minutes="15";</tag>
+        </item>
+      </one-of>
+      <item repeat="0-1">
+        minutos
+      </item>
+    </item>
+    <tag>
+      out = out.hour +":"+ out.minutes;
+    </tag>
+  </rule>
+    
+  <rule id="day">
+    <!-- Dias do mes -->  
+    <one-of>
+      <item>
+        um<tag>out="1"</tag>
+      </item>
+      <item>
+        dois<tag>out="2"</tag>
+      </item>
+      <item>
+        três<tag>out="3"</tag>
+      </item>
+      <item>
+        quatro<tag>out="4"</tag>
+      </item>
+      <item>
+        cinco<tag>out="5"</tag>
+      </item>
+      <item>
+        seis<tag>out="6"</tag>
+      </item>
+      <item>
+        sete<tag>out="7"</tag>
+      </item>
+      <item>
+        oito<tag>out="8"</tag>
+      </item>
+      <item>
+        nove<tag>out="9"</tag>
+      </item>
+      <item>
+        dez<tag>out="10"</tag>
+      </item>
+      <item>
+        onze<tag>out="11"</tag>
+      </item>
+      <item>
+        doze<tag>out="12"</tag>
+      </item>
+      <item>
+        treze<tag>out="13"</tag>
+      </item>
+      <item>
+        catorze<tag>out="14"</tag>
+      </item>
+      <item>
+        quinze<tag>out="15"</tag>
+      </item>
+      <item>
+        dezasseis<tag>out="16"</tag>
+      </item>
+      <item>
+        dezassete<tag>out="17"</tag>
+      </item>
+      <item>
+        dezoito<tag>out="18"</tag>
+      </item>
+      <item>
+        dezanove<tag>out="19"</tag>
+      </item>
+      <item>
+        vinte e um<tag>out="21"</tag>
+      </item>
+      <item>
+        vinte e dois<tag>out="22"</tag>
+      </item>
+      <item>
+        vinte e três<tag>out="23"</tag>
+      </item>
+      <item>
+        vinte e quatro<tag>out="24"</tag>
+      </item>
+      <item>
+        vinte e cinco<tag>out="25"</tag>
+      </item>
+      <item>
+        vinte e seis<tag>out="26"</tag>
+      </item>
+      <item>
+        vinte e sete<tag>out="27"</tag>
+      </item>
+      <item>
+        vinte e oito<tag>out="28"</tag>
+      </item>
+      <item>
+        vinte e nove<tag>out="29"</tag>
+      </item>
+      <item>
+        trinta<tag>out="30"</tag>
+      </item>
+      <item>
+        trinta e um<tag>out="31"</tag>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="month">
+    <!-- meses -->
+    <one-of>
+      <item>
+        janeiro<tag>out="1"</tag>
+      </item>
+      <item>
+        fevereiro<tag>out="2"</tag>
+      </item>
+      <item>
+        março<tag>out="3"</tag>
+      </item>
+      <item>
+        abril<tag>out="4"</tag>
+      </item>
+      <item>
+        maio<tag>out="5"</tag>
+      </item>
+      <item>
+        junho<tag>out="6"</tag>
+      </item>
+      <item>
+        julho<tag>out="7"</tag>
+      </item>
+      <item>
+        agosto<tag>out="8"</tag>
+      </item>
+      <item>
+        setembro<tag>out="9"</tag>
+      </item>
+      <item>
+        outubro<tag>out="10"</tag>
+      </item>
+      <item>
+        novembro<tag>out="11"</tag>
+      </item>
+      <item>
+        dezembro<tag>out="12"</tag>
+      </item>
+    </one-of>
+  </rule>
+  
+  <rule id="hours_numbers">
+    <one-of>
+      <item>
+        zero<tag>out="0"</tag>
+      </item>
+      <item>
+        um<tag>out="1"</tag>
+      </item>
+      <item>
+        dois<tag>out="2"</tag>
+      </item>
+      <item>
+        três<tag>out="3"</tag>
+      </item>
+      <item>
+        quatro<tag>out="4"</tag>
+      </item>
+      <item>
+        cinco<tag>out="5"</tag>
+      </item>
+      <item>
+        seis<tag>out="6"</tag>
+      </item>
+      <item>
+        sete<tag>out="7"</tag>
+      </item>
+      <item>
+        oito<tag>out="8"</tag>
+      </item>
+      <item>
+        nove<tag>out="9"</tag>
+      </item>
+      <item>
+        dez<tag>out="10"</tag>
+      </item>
+      <item>
+        onze<tag>out="11"</tag>
+      </item>
+      <item>
+        doze<tag>out="12"</tag>
+      </item>
+      <item>
+        treze<tag>out="13"</tag>
+      </item>
+      <item>
+        catorze<tag>out="14"</tag>
+      </item>
+      <item>
+        quinze<tag>out="15"</tag>
+      </item>
+      <item>
+        dezasseis<tag>out="16"</tag>
+      </item>
+      <item>
+        dezassete<tag>out="17"</tag>
+      </item>
+      <item>
+        dezoito<tag>out="18"</tag>
+      </item>
+      <item>
+        dezanove<tag>out="19"</tag>
+      </item>
+      <item>
+        vinte e um<tag>out="21"</tag>
+      </item>
+      <item>
+        vinte e dois<tag>out="22"</tag>
+      </item>
+      <item>
+        vinte e três<tag>out="23"</tag>
+      </item>
+     </one-of>
+  </rule>
+  <rule id="minutes_numbers">
+     <one-of>
+      <item>
+        zero<tag>out="0"</tag>
+      </item>
+      <item>
+        um<tag>out="1"</tag>
+      </item>
+      <item>
+        dois<tag>out="2"</tag>
+      </item>
+      <item>
+        três<tag>out="3"</tag>
+      </item>
+      <item>
+        quatro<tag>out="4"</tag>
+      </item>
+      <item>
+        cinco<tag>out="5"</tag>
+      </item>
+      <item>
+        seis<tag>out="6"</tag>
+      </item>
+      <item>
+        sete<tag>out="7"</tag>
+      </item>
+      <item>
+        oito<tag>out="8"</tag>
+      </item>
+      <item>
+        nove<tag>out="9"</tag>
+      </item>
+      <item>
+        dez<tag>out="10"</tag>
+      </item>
+      <item>
+        onze<tag>out="11"</tag>
+      </item>
+      <item>
+        doze<tag>out="12"</tag>
+      </item>
+      <item>
+        treze<tag>out="13"</tag>
+      </item>
+      <item>
+        catorze<tag>out="14"</tag>
+      </item>
+      <item>
+        quinze<tag>out="15"</tag>
+      </item>
+      <item>
+        dezasseis<tag>out="16"</tag>
+      </item>
+      <item>
+        dezassete<tag>out="17"</tag>
+      </item>
+      <item>
+        dezoito<tag>out="18"</tag>
+      </item>
+      <item>
+        dezanove<tag>out="19"</tag>
+      </item>
+      <item>
+        vinte e um<tag>out="21"</tag>
+      </item>
+      <item>
+        vinte e dois<tag>out="22"</tag>
+      </item>
+      <item>
+        vinte e três<tag>out="23"</tag>
+      </item>
+      <item>
+        vinte e quatro<tag>out="24"</tag>
+      </item>
+      <item>
+        vinte e cinco<tag>out="25"</tag>
+      </item>
+      <item>
+        vinte e seis<tag>out="26"</tag>
+      </item>
+      <item>
+        vinte e sete<tag>out="27"</tag>
+      </item>
+      <item>
+        vinte e oito<tag>out="28"</tag>
+      </item>
+      <item>
+        vinte e nove<tag>out="29"</tag>
+      </item>
+      <item>
+        trinta<tag>out="30"</tag>
+      </item>
+      <item>
+        trinta e um<tag>out="31"</tag>
+      </item>
+      <item>
+        trinta e dois<tag>out="32"</tag>
+      </item>
+      <item>
+        trinta e três<tag>out="33"</tag>
+      </item>
+      <item>
+        trinta e quatro<tag>out="34"</tag>
+      </item>
+      <item>
+        trinta e cinco<tag>out="35"</tag>
+      </item>
+      <item>
+        trinta e seis<tag>out="36"</tag>
+      </item>
+      <item>
+        trinta e sete<tag>out="37"</tag>
+      </item>
+      <item>
+        trinta e oito<tag>out="38"</tag>
+      </item>
+      <item>
+        trinta e nove<tag>out="39"</tag>
+      </item>
+      <item>
+        quarenta<tag>out="40"</tag>
+      </item>
+      <item>
+        quarenta e um<tag>out="41"</tag>
+      </item>
+      <item>
+        quarenta e dois<tag>out="42"</tag>
+      </item>
+      <item>
+        quarenta e três<tag>out="43"</tag>
+      </item>
+      <item>
+        quarenta e quatro<tag>out="44"</tag>
+      </item>
+      <item>
+        quarenta e cinco<tag>out="45"</tag>
+      </item>
+      <item>
+        quarenta e seis<tag>out="46"</tag>
+      </item>
+      <item>
+        quarenta e sete<tag>out="47"</tag>
+      </item>
+      <item>
+        quarenta e oito<tag>out="48"</tag>
+      </item>
+      <item>
+        quarenta e nove<tag>out="49"</tag>
+      </item>
+      <item>
+        cinquenta<tag>out="50"</tag>
+      </item>
+      <item>
+        cinquenta e um<tag>out="51"</tag>
+      </item>
+      <item>
+        cinquenta e dois<tag>out="52"</tag>
+      </item>
+      <item>
+        cinquenta e três<tag>out="53"</tag>
+      </item>
+      <item>
+        cinquenta e quatro<tag>out="54"</tag>
+      </item>
+      <item>
+        cinquenta e cinco<tag>out="55"</tag>
+      </item>
+      <item>
+        cinquenta e seis<tag>out="56"</tag>
+      </item>
+      <item>
+        cinquenta e sete<tag>out="57"</tag>
+      </item>
+      <item>
+        cinquenta e oito<tag>out="58"</tag>
+      </item>
+      <item>
+        cinquenta e nove<tag>out="59"</tag>
+      </item>
+    </one-of>
+  </rule>
+</grammar>

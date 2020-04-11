@@ -143,7 +143,7 @@ namespace AppGui
         private void cancelEvent(String id)
         {
             service.Events.Delete("primary", id).Execute();
-            t.Speak("Evento cancelado");
+            
         }
 
         private void postponeEvent(String id, EventDateTime newDate, EventDateTime newEnd)
@@ -217,6 +217,7 @@ namespace AppGui
                     {
                         cancelEvent(eventID);
                     }
+                    t.Speak("Evento cancelado");
                     break;
                 case "AVAIL_DAY":
                     Events avail_events = getNextEvents(100);
@@ -270,6 +271,44 @@ namespace AppGui
                     {
                         postponeEvent(eventID4, new_start4, new_end4);
                     }
+                    break;
+                case "CANCEL_EVENTS_DAY":
+                    string[] date5 = ((string)json.recognized[1].ToString()).Split(' ');
+                    DateTime start5 = new DateTime(2020, Int32.Parse(date5[1]), Int32.Parse(date5[0]), 00, 00, 00);
+                    DateTime end5 = new DateTime(2020, Int32.Parse(date5[1]), Int32.Parse(date5[0]), 23, 59, 59);
+                    Events events5 = getNextEvents(100);
+                    int count = 0;
+                    if (events5.Items != null && events5.Items.Count > 0)
+                    {
+                        Console.WriteLine("Upcoming events:");
+                        foreach (var eventItem in events5.Items)
+                        {
+                            string when = eventItem.Start.DateTime.ToString();
+                            if (String.IsNullOrEmpty(when))
+                            {
+                                when = eventItem.Start.Date;
+                            }
+                            if ((DateTime.Compare((DateTime)(eventItem.Start.DateTime), start5) > 0) && (DateTime.Compare((DateTime)(eventItem.Start.DateTime), end5) < 0))
+                            {
+                                cancelEvent(eventItem.Id);
+                                count++;
+                            }
+
+                        }
+                    }
+                    if(count == 1)
+                    {
+                        t.Speak("Foi cancelado um evento");
+                    }
+                    else if(count > 1)
+                    {
+                        t.Speak("Foram cancelados " + count + " eventos");
+                    }
+                    else
+                    {
+                        t.Speak("Não tinha eventos nesse dia");
+                    }
+                    
                     break;
             }
 

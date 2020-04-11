@@ -19,12 +19,36 @@
       <item>
         <ruleref uri="#postponeEvent"/>
       </item>
+      <item>
+        <ruleref uri="#cancelEventsDay"/>
+      </item>
     </one-of>
     <item repeat="0-1">
       por favor
     </item>
 
 	</rule>
+  <rule id="cancelEventsDay">
+    <!--
+      Quero cancelar
+      Cancela         os evento do dia [data].
+    -->
+    <tag>
+      out.type = "CANCEL_EVENTS_DAY";
+    </tag>
+    <one-of>
+      <item>Quero cancelar</item>
+      <item>Cancela</item>
+    </one-of>
+    <item>os eventos do dia</item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+  </rule>
+  
   <rule id="postponeEvent">
     <!--
       Adia o/a [evento] do dia [data] para o dia [data].

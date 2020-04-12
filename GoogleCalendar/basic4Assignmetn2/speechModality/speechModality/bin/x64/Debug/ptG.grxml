@@ -19,12 +19,36 @@
       <item>
         <ruleref uri="#postponeEvent"/>
       </item>
+      <item>
+        <ruleref uri="#cancelEventsDay"/>
+      </item>
     </one-of>
     <item repeat="0-1">
       por favor
     </item>
 
 	</rule>
+  <rule id="cancelEventsDay">
+    <!--
+      Quero cancelar
+      Cancela         os evento do dia [data].
+    -->
+    <tag>
+      out.type = "CANCEL_EVENTS_DAY";
+    </tag>
+    <one-of>
+      <item>Quero cancelar</item>
+      <item>Cancela</item>
+    </one-of>
+    <item>os eventos do dia</item>
+    <item>
+      <ruleref uri="#date"/>
+      <tag>
+        out.date=rules.latest();
+      </tag>
+    </item>
+  </rule>
+  
   <rule id="postponeEvent">
     <!--
       Adia o/a [evento] do dia [data] para o dia [data].
@@ -46,6 +70,23 @@
       <ruleref uri="#date"/>
       <tag>
         out.date=rules.latest();
+      </tag>
+    </item>
+    <one-of>
+      <item>
+        às
+      </item>
+      <item>
+        à
+      </item>
+      <item>
+        ao
+      </item>
+    </one-of>
+    <item>
+      <ruleref uri="#hour"/>
+      <tag>
+        out.starthour=rules.latest();
       </tag>
     </item>
     <item>para o dia</item>
@@ -76,7 +117,7 @@
   </rule>
   <rule id="cancelEvent">
     <!--
-      Não vou porder ir ao/à [evento] do dia [data].
+      Não vou porder ir ao/à [evento] do dia [data] à/às [hora].
     -->
     <tag>
       out.type = "CANCEL_EVENT";
@@ -97,6 +138,23 @@
       <ruleref uri="#date"/>
       <tag>
         out.date=rules.latest();
+      </tag>
+    </item>
+    <one-of>
+      <item>
+        às
+      </item>
+      <item>
+        à
+      </item>
+      <item>
+        ao
+      </item>
+    </one-of>
+    <item>
+      <ruleref uri="#hour"/>
+      <tag>
+        out.starthour=rules.latest();
       </tag>
     </item>
   </rule>
@@ -184,6 +242,9 @@
         out.starthour=rules.latest();
       </tag>
     </item>
+    <tag>
+      out.endhour="NO_HOUR";
+    </tag>
     <item repeat="0-1">
       <one-of>
         <item>

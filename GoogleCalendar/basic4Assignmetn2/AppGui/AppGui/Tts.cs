@@ -112,7 +112,7 @@ namespace AppGui
             tts.SpeakAsync(text);
         }
 
-        public void SpeakDate(string date)
+        public void SpeakDate(String date)
         {
             while (player.Stream != null)
             {
@@ -122,7 +122,7 @@ namespace AppGui
             // Build an SSML prompt in a string.  
             string str = "<speak version=\"1.0\"";
             str += " xmlns=\"http://www.w3.org/2001/10/synthesis\"";
-            str += " xml:lang=\"en-US\">";
+            str += " xml:lang=\"pt-PT\">";
             str += "<say-as type=\"date:dmy\"> " + date + " </say-as>";
             str += "</speak>";
 

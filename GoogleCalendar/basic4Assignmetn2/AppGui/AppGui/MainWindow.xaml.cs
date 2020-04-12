@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Xml.Linq;
 using mmisharp;
 using Newtonsoft.Json;
@@ -13,13 +10,8 @@ using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace AppGui
 {
@@ -62,7 +54,7 @@ namespace AppGui
                 HttpClientInitializer = credentials,
                 ApplicationName = ApplicationName,
             });
-            
+
             InitializeComponent();
 
 
@@ -90,14 +82,15 @@ namespace AppGui
             EventsResource.InsertRequest request = service.Events.Insert(newEvent, calendarId);
             Event createdEvent = request.Execute();
             Console.WriteLine("Event created: {0}", createdEvent.HtmlLink);
+
+            String startDate = start.DateTime.ToString().Split(' ')[0];
+            String startTime = start.DateTime.ToString().Split(' ')[1];
             Console.WriteLine(  "Summary: " + summary +
                                 "\nLocation: " + location +
                                 "\nDescription: " + desc + 
-                                "\nStart: " + start.DateTime +
+                                "\nStart: " + start.DateTime.ToString() +
                                 "\nEnd: " + end.Date);
-            t.Speak("Evento criado");
-            //t.Speak("Evento " + summary + " criado no dia ");
-            //t.SpeakDate(start.Date);
+            t.Speak("Evento " + translateSummary(summary) + " criado no dia " + startDate + " às " + startTime);
         }
 
         private Events getNextEvents(int maxResults)
@@ -142,7 +135,7 @@ namespace AppGui
         private void cancelEvent(String id)
         {
             service.Events.Delete("primary", id).Execute();
-            
+            t.Speak("Evento cancelado");
         }
 
         private void postponeEvent(String id, string[] date)
@@ -165,6 +158,27 @@ namespace AppGui
             ev.End = new_end;
             service.Events.Update(ev, "primary", id).Execute();
 
+        }
+
+        private String translateSummary(String summary)
+        {
+            String str = "";
+            switch(summary)
+            {
+                case "DINNER":
+                    str = "jantar";
+                    break;
+                case "MEETING":
+                    str = "reunião";
+                    break;
+                case "LUNCH":
+                    str = "almoço";
+                    break;
+                case "PARTY":
+                    str = "festa";
+                    break;
+            }
+            return str;
         }
 
         private void MmiC_Message(object sender, MmiEventArgs e )
@@ -222,6 +236,9 @@ namespace AppGui
                             if((DateTime.Compare( (DateTime)(eventItem.Start.DateTime), start1)>0) && (DateTime.Compare((DateTime)(eventItem.Start.DateTime), end1) < 0))
                             {
                                 Console.WriteLine("{0} ({1})", eventItem.Summary, when);
+
+                                t.Speak("Evento" + translateSummary(eventItem.Summary) + "no dia" + when.Split(' ')[0] + "às" + when.Split(' ')[1]);
+                                Thread.Sleep(5000);
                             }
                             
                         }
@@ -229,6 +246,7 @@ namespace AppGui
                     else
                     {
                         Console.WriteLine("No upcoming events found.");
+                        t.Speak("Não tem eventos marcados.");
                     }
                     
                     break;
@@ -237,11 +255,15 @@ namespace AppGui
                     string[] starthour2 = ((string)json.recognized[3].ToString()).Split(':');
                     DateTime start2 = new DateTime(2020, Int32.Parse(date2[1]), Int32.Parse(date2[0]), Int32.Parse(starthour2[0]), Int32.Parse(starthour2[1]), 00);
                     String eventID = getEventId((string)json.recognized[1].ToString(), start2);
-                    if(eventID != "NO_EVENT")
+
+                    Console.WriteLine(eventID);
+                    String cancelDate = start2.ToString().Split(' ')[0];
+                    if (eventID != "NO_EVENT")
                     {
                         cancelEvent(eventID);
+                        t.Speak("Evento" + translateSummary(json.recognized[1].ToString()) + "no dia" + cancelDate + "cancelado.");
                     }
-                    t.Speak("Evento cancelado");
+                    
                     break;
                 case "AVAIL_DAY":
                     Events avail_events = getNextEvents(100);

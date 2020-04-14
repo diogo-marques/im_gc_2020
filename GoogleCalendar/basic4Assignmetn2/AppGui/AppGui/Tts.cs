@@ -111,25 +111,13 @@ namespace AppGui
             tts.SetOutputToWaveStream(player.Stream);
             tts.SpeakAsync(text);
         }
-
-        public void SpeakDate(String date)
+        
+        public void Speak(Queue<String> queue)
         {
-            while (player.Stream != null)
+            foreach(var phrase in queue)
             {
-                Console.WriteLine("Waiting...");
+                Speak(phrase);
             }
-
-            // Build an SSML prompt in a string.  
-            string str = "<speak version=\"1.0\"";
-            str += " xmlns=\"http://www.w3.org/2001/10/synthesis\"";
-            str += " xml:lang=\"pt-PT\">";
-            str += "<say-as type=\"date:dmy\"> " + date + " </say-as>";
-            str += "</speak>";
-
-            //create audio stream with speech
-            player.Stream = new System.IO.MemoryStream();
-            tts.SetOutputToWaveStream(player.Stream);
-            tts.SpeakSsml(str);
         }
 
         public void Speak(string text, int rate)

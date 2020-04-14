@@ -12,6 +12,7 @@ using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using System.IO;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace AppGui
 {
@@ -223,6 +224,8 @@ namespace AppGui
                     DateTime start1 = new DateTime(2020, Int32.Parse(date1[1]), Int32.Parse(date1[0]), 00, 00, 00);
                     DateTime end1 = new DateTime(2020, Int32.Parse(date1[1]), Int32.Parse(date1[0]), 23, 59, 59);
                     Events events = getNextEvents(100);
+                    Queue<String> phrases = new Queue<string>();
+
                     if (events.Items != null && events.Items.Count > 0)
                     {
                         Console.WriteLine("Upcoming events:");
@@ -237,11 +240,13 @@ namespace AppGui
                             {
                                 Console.WriteLine("{0} ({1})", eventItem.Summary, when);
 
-                                t.Speak("Evento" + translateSummary(eventItem.Summary) + "no dia" + when.Split(' ')[0] + "às" + when.Split(' ')[1]);
-                                Thread.Sleep(5000);
+                                //t.Speak("Evento" + translateSummary(eventItem.Summary) + "às" + when.Split(' ')[1]);
+                                //Thread.Sleep(5000);
+                                phrases.Enqueue("Evento" + translateSummary(eventItem.Summary) + "às" + when.Split(' ')[1]);
                             }
                             
                         }
+                        t.Speak(phrases);   // speak queue
                     }
                     else
                     {
@@ -250,6 +255,23 @@ namespace AppGui
                     }
                     
                     break;
+                case "NEXT_EVENT":
+                    Events ev = getNextEvents(1);
+                    if (ev.Items != null && ev.Items.Count > 0)
+                    {
+                        Console.WriteLine("Next event:");
+                        foreach (var eventItem in ev.Items)
+                        {
+                            string when = eventItem.Start.DateTime.ToString();
+                            if (String.IsNullOrEmpty(when))
+                            {
+                                when = eventItem.Start.Date;
+                            }
+                            Console.WriteLine("{0} ({1})", eventItem.Summary, when);
+                            t.Speak("Evento" + translateSummary(eventItem.Summary) + "dia" + when.Split(' ')[0] + "às" + when.Split(' ')[1]);
+                        }
+                    }
+                    break;
                 case "CANCEL_EVENT":
                     string[] date2 = ((string)json.recognized[2].ToString()).Split(' ');
                     string[] starthour2 = ((string)json.recognized[3].ToString()).Split(':');
@@ -257,7 +279,8 @@ namespace AppGui
                     String eventID = getEventId((string)json.recognized[1].ToString(), start2);
 
                     Console.WriteLine(eventID);
-                    String cancelDate = start2.ToString().Split(' ')[0];
+                    //String cancelDate = start2.ToString().Split(' ')[0]; // data dd/mm/yyyy
+                    String cancelDate = date2[0] + "/" + date2[1];  // data dd/mm
                     if (eventID != "NO_EVENT")
                     {
                         cancelEvent(eventID);

@@ -11,6 +11,9 @@
         <ruleref uri="#listEvents"/>
       </item>
       <item>
+        <ruleref uri="#nextEvent"/>
+      </item>
+      <item>
         <ruleref uri="#cancelEvent"/>
       </item>
       <item>
@@ -182,6 +185,29 @@
         out.date=rules.latest();
       </tag>
     </item>
+  </rule>
+  <rule id="nextEvent">
+    <!-- Qual é o meu próximo evento? -->
+    <tag>
+      out.type = "NEXT_EVENT";
+    </tag>
+    <one-of>
+      <item>
+        Qual é
+      </item>
+      <item>
+        o
+      </item>
+      <item repeat="0-1">
+        meu
+      </item>
+      <item>
+        próximo
+      </item>
+      <item>
+        evento
+      </item>
+    </one-of>
   </rule>
   <rule id="createEvent">
     <!-- Tenho um/uma [evento] "no" [data] "às/à/ao"/"do,das,da" [hora] -->

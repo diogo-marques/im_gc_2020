@@ -25,12 +25,33 @@
       <item>
         <ruleref uri="#cancelEventsDay"/>
       </item>
+      <item>
+        <ruleref uri="#confirmation"/>
+      </item>
+      <item>
+        <ruleref uri="#negative"/>
+      </item>
     </one-of>
     <item repeat="0-1">
       por favor
     </item>
 
 	</rule>
+  <rule id="confirmation">
+    <one-of>
+      <item>Sim</item>
+      <item>Afirmativo</item>
+    </one-of>
+    <ruleref special="GARBAGE"/>
+    <tag>out.c="YES";</tag>
+  </rule>
+  <rule id="negative">
+    <one-of>
+      <item>Não</item>
+    </one-of>
+    <ruleref special="GARBAGE"/>
+    <tag>out.c="NO";</tag>
+  </rule>
   <rule id="cancelEventsDay">
     <!--
       Quero cancelar
@@ -43,7 +64,11 @@
       <item>Quero cancelar</item>
       <item>Cancela</item>
     </one-of>
-    <item>os eventos do dia</item>
+    <item>os eventos</item>
+    <one-of>
+      <item>de</item>
+      <item>do dia</item>
+    </one-of>
     <item>
       <ruleref uri="#date"/>
       <tag>

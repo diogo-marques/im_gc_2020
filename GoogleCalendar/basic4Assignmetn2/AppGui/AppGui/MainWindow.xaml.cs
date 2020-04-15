@@ -136,7 +136,7 @@ namespace AppGui
         private void cancelEvent(String id)
         {
             service.Events.Delete("primary", id).Execute();
-            t.Speak("Evento cancelado");
+            //t.Speak("Evento cancelado");
         }
 
         private void postponeEvent(String id, string s_date)
@@ -297,7 +297,7 @@ namespace AppGui
                     DateTime end1 = stringToDateTime(date1, 23, 59);
                     Events events = getNextEvents(100);
                     String phrases = "";
-
+                    bool existEvent = true;
                     if (events.Items != null && events.Items.Count > 0)
                     {
                         Console.WriteLine("Upcoming events:");
@@ -311,17 +311,17 @@ namespace AppGui
                             if((DateTime.Compare( (DateTime)(eventItem.Start.DateTime), start1)>0) && (DateTime.Compare((DateTime)(eventItem.Start.DateTime), end1) < 0))
                             {
                                 Console.WriteLine("{0} ({1})", eventItem.Summary, when);
-
-                                phrases += ("Evento" + eventItem.Summary + "às" + when.Split(' ')[1]) + ". \n";
+                                existEvent = false;
+                                phrases += ("Evento " + eventItem.Summary + " às " + when.Split(' ')[1]) + ". \n";
                             }
                             
                         }
                         t.Speak(phrases);
                     }
-                    else
+                    if(existEvent)
                     {
                         Console.WriteLine("No upcoming events found.");
-                        t.Speak("Não tem eventos marcados.");
+                        t.Speak("Não tem eventos marcados nesse dia.");
                     }
                     
                     break;
@@ -338,7 +338,7 @@ namespace AppGui
                                 when = eventItem.Start.Date;
                             }
                             Console.WriteLine("{0} ({1})", eventItem.Summary, when);
-                            t.Speak("Evento" + eventItem.Summary + "dia" + when.Split(' ')[0] + "às" + when.Split(' ')[1]);
+                            t.Speak("Evento " + eventItem.Summary + " dia " + when.Split(' ')[0] +  "às " + when.Split(' ')[1]);
                         }
                     }
                     break;
@@ -354,7 +354,7 @@ namespace AppGui
                     if (eventID != "NO_EVENT")
                     {
                         cancelEvent(eventID);
-                        t.Speak("Evento" + json.recognized[1].ToString() + "no dia" + cancelDate + "cancelado.");
+                        t.Speak("Evento " + json.recognized[1].ToString() + " no dia " + cancelDate + " cancelado.");
                     }
                     
                     break;
@@ -383,11 +383,11 @@ namespace AppGui
                     }
                     if (avail)
                     {
-                        t.Speak("Sim, não tem nenhum evento marcado neste dia.");
+                        t.Speak(" Sim, não tem nenhum evento marcado neste dia. ");
                     }
                     else
                     {
-                        t.Speak("Tem eventos marcados neste dia.");
+                        t.Speak(" Tem eventos marcados neste dia. ");
                     }
                     break;
                 case "POSTPONE_EVENT":
@@ -440,7 +440,7 @@ namespace AppGui
                     }
                     else
                     {
-                        t.Speak("Não tinha eventos nesse dia");
+                        t.Speak("Não tem eventos nesse dia");
                     }
                     
                     break;

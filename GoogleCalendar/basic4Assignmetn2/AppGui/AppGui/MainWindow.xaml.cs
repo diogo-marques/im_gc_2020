@@ -91,7 +91,7 @@ namespace AppGui
                                 "\nDescription: " + desc + 
                                 "\nStart: " + start.DateTime.ToString() +
                                 "\nEnd: " + end.Date);
-            t.Speak("Evento " + translateSummary(summary) + " criado no dia " + startDate + " às " + startTime);
+            t.Speak("Evento " + summary + " criado no dia " + startDate + " às " + startTime);
         }
 
         private Events getNextEvents(int maxResults)
@@ -139,22 +139,57 @@ namespace AppGui
             t.Speak("Evento cancelado");
         }
 
-        private void postponeEvent(String id, string[] date)
+        private void postponeEvent(String id, string s_date)
         {
             Console.WriteLine(id);
             Event ev = service.Events.Get("primary", id).Execute();
             DateTime s = (DateTime) ev.Start.DateTime;
             DateTime e = (DateTime)ev.End.DateTime;
-            EventDateTime new_start = new EventDateTime()
+            EventDateTime new_start;
+            EventDateTime new_end;
+            String[] date = s_date.Split(' '); 
+            if (s_date == "TODAY")
             {
-                DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), s.Hour, s.Minute, 00),
-                TimeZone = "Europe/Lisbon",
-            };
-            EventDateTime new_end = new EventDateTime()
+                new_start = new EventDateTime()
+                {
+                    DateTime = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, s.Hour, s.Minute, 00),
+                    TimeZone = "Europe/Lisbon",
+                };
+                new_end = new EventDateTime()
+                {
+                    DateTime = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, e.Hour, e.Minute, 00),
+                    TimeZone = "Europe/Lisbon",
+                };
+            }
+            else if (s_date == "TOMORROW")
             {
-                DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), e.Hour, e.Minute, 00),
-                TimeZone = "Europe/Lisbon",
-            };
+                var today = DateTime.Now;
+                var tomorrow = today.AddDays(1);
+                new_start = new EventDateTime()
+                {
+                    DateTime = new DateTime(tomorrow.Year, tomorrow.Month, tomorrow.Day, s.Hour, s.Minute, 00),
+                    TimeZone = "Europe/Lisbon",
+                };
+                new_end = new EventDateTime()
+                {
+                    DateTime = new DateTime(tomorrow.Year, tomorrow.Month, tomorrow.Day, e.Hour, e.Minute, 00),
+                    TimeZone = "Europe/Lisbon",
+                };
+            }
+            else
+            {
+                 new_start = new EventDateTime()
+                {
+                    DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), s.Hour, s.Minute, 00),
+                    TimeZone = "Europe/Lisbon",
+                };
+                new_end = new EventDateTime()
+                {
+                    DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), e.Hour, e.Minute, 00),
+                    TimeZone = "Europe/Lisbon",
+                };
+            }
+                
             ev.Start = new_start;
             ev.End = new_end;
             service.Events.Update(ev, "primary", id).Execute();
@@ -182,7 +217,60 @@ namespace AppGui
             return str;
         }
 
-        private void MmiC_Message(object sender, MmiEventArgs e )
+        private EventDateTime stringToEventDateTime(String s_date, String s_hour)
+        {
+            string[] date = s_date.Split(' ');
+            string[] starthour = s_hour.Split(':');
+            if (s_date == "TODAY")
+            {
+                return new EventDateTime()
+                {
+                    DateTime = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, Int32.Parse(starthour[0]), Int32.Parse(starthour[1]), 00),
+                    TimeZone = "Europe/Lisbon",
+                };
+            }
+            else if (s_date == "TOMORROW")
+            {
+                var today = DateTime.Now;
+                var tomorrow = today.AddDays(1);
+                return new EventDateTime()
+                {
+                    DateTime = new DateTime(tomorrow.Year, tomorrow.Month, tomorrow.Day, Int32.Parse(starthour[0]), Int32.Parse(starthour[1]), 00),
+                    TimeZone = "Europe/Lisbon",
+                };
+            }
+            else
+            {
+                return new EventDateTime()
+                {
+                    DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), Int32.Parse(starthour[0]), Int32.Parse(starthour[1]), 00),
+                    TimeZone = "Europe/Lisbon",
+                };
+            }
+        }
+
+        private DateTime stringToDateTime(String s_date, int hour, int minute)
+        {
+            string[] date = s_date.Split(' ');
+            if (s_date == "TODAY")
+            {
+                return new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, hour, minute, 00);
+                   
+            }
+            else if (s_date == "TOMORROW")
+            {
+                var today = DateTime.Now;
+                var tomorrow = today.AddDays(1);
+                return new DateTime(tomorrow.Year, tomorrow.Month, tomorrow.Day, hour, minute, 00);
+            }
+            else
+            {
+                return new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), hour, minute, 00);
+                    
+            }
+        }
+
+            private void MmiC_Message(object sender, MmiEventArgs e )
         {
             Console.WriteLine(e.Message);
             var doc = XDocument.Parse(e.Message);
@@ -194,37 +282,21 @@ namespace AppGui
             switch ((string)json.recognized[0].ToString())
             {
                 case "CREATE_EVENT":
-                    string[] date = ((string)json.recognized[2].ToString()).Split(' ');
                     string[] starthour = ((string)json.recognized[3].ToString()).Split(':');
-                    EventDateTime start = new EventDateTime()
-                    {
-                        DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), Int32.Parse(starthour[0]), Int32.Parse(starthour[1]), 00),
-                        TimeZone = "Europe/Lisbon",
-                    };
+
                     String endhour_s = ((string)json.recognized[4].ToString());
-                    int[] endhour = new int[2];
                     if(endhour_s == "NO_HOUR")
                     {
-                        endhour[0] = Int32.Parse(starthour[0]) + 1;
-                        endhour[1] = Int32.Parse(starthour[1]) + 1;
+                        endhour_s = (Int32.Parse(starthour[0]) + 1) + ":" +(Int32.Parse(starthour[1]));
                     }
-                    else
-                    {
-                        endhour = Array.ConvertAll(endhour_s.Split(':'), int.Parse) ;
-                    }
-                    EventDateTime end = new EventDateTime()
-                    {
-                        DateTime = new DateTime(2020, Int32.Parse(date[1]), Int32.Parse(date[0]), endhour[0], endhour[1], 00),
-                        TimeZone = "Europe/Lisbon",
-                    };
-                    createEvent(service, (string)json.recognized[1].ToString(), "Aveiro", start, end, " ");
+                    createEvent(service, (string)json.recognized[1].ToString(), "Aveiro", stringToEventDateTime((string)json.recognized[2].ToString(), (string)json.recognized[3].ToString()), stringToEventDateTime((string)json.recognized[2].ToString(), endhour_s), " ");
                     break;
                 case "LIST_EVENTS":
-                    string[] date1 = ((string)json.recognized[1].ToString()).Split(' ');
-                    DateTime start1 = new DateTime(2020, Int32.Parse(date1[1]), Int32.Parse(date1[0]), 00, 00, 00);
-                    DateTime end1 = new DateTime(2020, Int32.Parse(date1[1]), Int32.Parse(date1[0]), 23, 59, 59);
+                    string date1 = ((string)json.recognized[1].ToString());
+                    DateTime start1 = stringToDateTime(date1, 0, 0);
+                    DateTime end1 = stringToDateTime(date1, 23, 59);
                     Events events = getNextEvents(100);
-                    Queue<String> phrases = new Queue<string>();
+                    String phrases = "";
 
                     if (events.Items != null && events.Items.Count > 0)
                     {
@@ -240,13 +312,11 @@ namespace AppGui
                             {
                                 Console.WriteLine("{0} ({1})", eventItem.Summary, when);
 
-                                //t.Speak("Evento" + translateSummary(eventItem.Summary) + "às" + when.Split(' ')[1]);
-                                //Thread.Sleep(5000);
-                                phrases.Enqueue("Evento" + translateSummary(eventItem.Summary) + "às" + when.Split(' ')[1]);
+                                phrases += ("Evento" + eventItem.Summary + "às" + when.Split(' ')[1]) + ". \n";
                             }
                             
                         }
-                        t.Speak(phrases);   // speak queue
+                        t.Speak(phrases);
                     }
                     else
                     {
@@ -268,14 +338,14 @@ namespace AppGui
                                 when = eventItem.Start.Date;
                             }
                             Console.WriteLine("{0} ({1})", eventItem.Summary, when);
-                            t.Speak("Evento" + translateSummary(eventItem.Summary) + "dia" + when.Split(' ')[0] + "às" + when.Split(' ')[1]);
+                            t.Speak("Evento" + eventItem.Summary + "dia" + when.Split(' ')[0] + "às" + when.Split(' ')[1]);
                         }
                     }
                     break;
                 case "CANCEL_EVENT":
-                    string[] date2 = ((string)json.recognized[2].ToString()).Split(' ');
+                    string date2 = (string)json.recognized[2].ToString();
                     string[] starthour2 = ((string)json.recognized[3].ToString()).Split(':');
-                    DateTime start2 = new DateTime(2020, Int32.Parse(date2[1]), Int32.Parse(date2[0]), Int32.Parse(starthour2[0]), Int32.Parse(starthour2[1]), 00);
+                    DateTime start2 = stringToDateTime(date2, Int32.Parse(starthour2[0]), Int32.Parse(starthour2[1]));
                     String eventID = getEventId((string)json.recognized[1].ToString(), start2);
 
                     Console.WriteLine(eventID);
@@ -284,15 +354,15 @@ namespace AppGui
                     if (eventID != "NO_EVENT")
                     {
                         cancelEvent(eventID);
-                        t.Speak("Evento" + translateSummary(json.recognized[1].ToString()) + "no dia" + cancelDate + "cancelado.");
+                        t.Speak("Evento" + json.recognized[1].ToString() + "no dia" + cancelDate + "cancelado.");
                     }
                     
                     break;
                 case "AVAIL_DAY":
                     Events avail_events = getNextEvents(100);
-                    string[] date3 = ((string)json.recognized[1].ToString()).Split(' ');
-                    DateTime start3 = new DateTime(2020, Int32.Parse(date3[1]), Int32.Parse(date3[0]), 00, 00, 00);
-                    DateTime end3 = new DateTime(2020, Int32.Parse(date3[1]), Int32.Parse(date3[0]), 23, 59, 59);
+                    string date3 = (string)json.recognized[1].ToString();
+                    DateTime start3 = stringToDateTime(date3, 0, 0);
+                    DateTime end3 = stringToDateTime(date3, 23, 59);
                     bool avail = true;
                     if (avail_events.Items != null && avail_events.Items.Count > 0)
                     {
@@ -321,21 +391,26 @@ namespace AppGui
                     }
                     break;
                 case "POSTPONE_EVENT":
-                    string[] date4 = ((string)json.recognized[2].ToString()).Split(' ');
+                    string date4 = ((string)json.recognized[2].ToString());
                     string[] starthour4 = ((string)json.recognized[3].ToString()).Split(':');
-                    string[] new_date4 = ((string)json.recognized[4].ToString()).Split(' ');
-                    DateTime start4 = new DateTime(2020, Int32.Parse(date4[1]), Int32.Parse(date4[0]), Int32.Parse(starthour4[0]), Int32.Parse(starthour4[1]), 00);
+                    string new_date4 = (string)json.recognized[4].ToString();
+                    DateTime start4 = stringToDateTime(date4, Int32.Parse(starthour4[0]), Int32.Parse(starthour4[1])); 
                     
                     String eventID4 = getEventId((string)json.recognized[1].ToString(), start4);
                     if (eventID4 != "NO_EVENT")
                     {
                         postponeEvent(eventID4, new_date4);
+                        t.Speak("Evento " + (string)json.recognized[1].ToString() + " adiado.");
+                    }
+                    else
+                    {
+                        t.Speak("Não existe " + (string)json.recognized[1].ToString() + " neste dia.");
                     }
                     break;
                 case "CANCEL_EVENTS_DAY":
-                    string[] date5 = ((string)json.recognized[1].ToString()).Split(' ');
-                    DateTime start5 = new DateTime(2020, Int32.Parse(date5[1]), Int32.Parse(date5[0]), 00, 00, 00);
-                    DateTime end5 = new DateTime(2020, Int32.Parse(date5[1]), Int32.Parse(date5[0]), 23, 59, 59);
+                    string date5 = (string)json.recognized[1].ToString();
+                    DateTime start5 = stringToDateTime(date5, 0, 0);
+                    DateTime end5 = stringToDateTime(date5, 23, 59);
                     Events events5 = getNextEvents(100);
                     int count = 0;
                     if (events5.Items != null && events5.Items.Count > 0)

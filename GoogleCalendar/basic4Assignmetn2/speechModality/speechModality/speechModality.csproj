@@ -104,6 +104,9 @@
     </ApplicationDefinition>
     <Compile Include="SpeechEventArg.cs" />
     <Compile Include="SpeechMod.cs" />
+    <Compile Include="Tts.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -10,6 +10,7 @@ namespace speechModality
 {
     public class SpeechMod
     {
+        private Tts t = new Tts();
         private SpeechRecognitionEngine sre;
         private Grammar gr;
         public event EventHandler<SpeechEventArg> Recognized;
@@ -52,24 +53,33 @@ namespace speechModality
             onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = false });
         }
 
+        
+
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             onRecognized(new SpeechEventArg(){Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true});
-            
+
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
-            string json = "{ \"recognized\": [";
-            foreach (var resultSemantic in e.Result.Semantics)
+            if (e.Result.Confidence < 0.65)
             {
-                json+= "\"" + resultSemantic.Value.Value +"\", ";
+                t.Speak("Repita a frase, por favor.");
             }
-            json = json.Substring(0, json.Length - 2);
-            json += "] }";
+            else
+            {
+                string json = "{ \"recognized\": [";
+                foreach (var resultSemantic in e.Result.Semantics)
+                {
+                    json += "\"" + resultSemantic.Value.Value + "\", ";
+                }
+                json = json.Substring(0, json.Length - 2);
+                json += "] }";
 
-            Console.WriteLine(json);
+                Console.WriteLine(json);
 
-            var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime+"", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration)+"",e.Result.Confidence, json);
-            mmic.Send(exNot);
+                var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime + "", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration) + "", e.Result.Confidence, json);
+                mmic.Send(exNot);
+            }
         }
     }
 }

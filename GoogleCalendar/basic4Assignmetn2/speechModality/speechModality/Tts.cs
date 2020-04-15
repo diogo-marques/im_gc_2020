@@ -8,7 +8,9 @@ using Microsoft.Speech.Synthesis;
 using Microsoft.Speech.AudioFormat;
 
 
-namespace AppGui
+
+
+namespace speechModality
 {
     class Tts
     {
@@ -103,21 +105,13 @@ namespace AppGui
         {
             while (player.Stream != null)
             {
-                Console.WriteLine("Waiting...");
+               Console.WriteLine("Waiting...");
             }
 
             //create audio stream with speech
             player.Stream = new System.IO.MemoryStream();
             tts.SetOutputToWaveStream(player.Stream);
             tts.SpeakAsync(text);
-        }
-        
-        public void Speak(Queue<String> queue)
-        {
-            foreach(var phrase in queue)
-            {
-                Speak(phrase);
-            }
         }
 
         public void Speak(string text, int rate)

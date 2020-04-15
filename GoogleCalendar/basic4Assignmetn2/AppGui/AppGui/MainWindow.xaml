@@ -6,12 +6,4 @@
         xmlns:local="clr-namespace:AppGui"
         mc:Ignorable="d"
         Title="MainWindow" Height="169.052" Width="240.116">
-    <Grid>
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Rectangle x:Name="rectangle" Width="50" Height="50" Fill="Gray" Margin="10"></Rectangle>
-            <Ellipse x:Name="circle" Width="50" Height="50" Fill="Gray" Margin="10"></Ellipse>
-            <Polygon x:Name="triangle" Width="50" Height="50" Fill="Gray" Points="25,0 50,50 0,50" Margin="10"></Polygon>
-        </StackPanel>
-
-    </Grid>
 </Window>

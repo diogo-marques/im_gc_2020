@@ -46,3 +46,4 @@ C:\Users\andre\Desktop\2semestre\im\im_gc_2020\GoogleCalendar\basic4Assignmetn2\
 C:\Users\andre\Desktop\2semestre\im\im_gc_2020\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\x64\Debug\speechModality.csproj.CopyComplete
 C:\Users\andre\Desktop\2semestre\im\im_gc_2020\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\x64\Debug\speechModality.exe
 C:\Users\andre\Desktop\2semestre\im\im_gc_2020\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\obj\x64\Debug\speechModality.pdb
+C:\Users\diogo\Desktop\IM\im_gc_2020\GoogleCalendar\basic4Assignmetn2\speechModality\speechModality\bin\x64\Debug\Tts.cs

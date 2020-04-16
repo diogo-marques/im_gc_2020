@@ -31,12 +31,28 @@
       <item>
         <ruleref uri="#negative"/>
       </item>
+      <item>
+        <ruleref uri="#thanks"/>
+      </item>
     </one-of>
     <item repeat="0-1">
       por favor
     </item>
 
 	</rule>
+  <rule id="thanks">
+    <item repeat="0-1">
+      Muito
+    </item>
+    <one-of>
+      <item>Obrigado</item>
+      <item>Obrigada</item>
+      <item>Bem haja</item>
+      <item>Fico agradecido</item>
+    </one-of>
+    <ruleref special="GARBAGE"/>
+    <tag>out.c="THANKS";</tag>
+  </rule>
   <rule id="confirmation">
     <one-of>
       <item>Sim</item>
@@ -220,10 +236,7 @@
       out.type = "NEXT_EVENT";
     </tag>
       <item>
-        Qual é
-      </item>
-      <item>
-        o
+        Qual é o
       </item>
       <item repeat="0-1">
         meu
@@ -231,9 +244,10 @@
       <item>
         próximo
       </item>
-      <item>
-        evento
-      </item>
+    <one-of>
+      <item> evento</item>
+      <item> compromisso</item>
+    </one-of>
   </rule>
   <rule id="createEvent">
     <!-- Tenho um/uma [evento] "no" [data] "às/à/ao"/"do,das,da" [hora] -->

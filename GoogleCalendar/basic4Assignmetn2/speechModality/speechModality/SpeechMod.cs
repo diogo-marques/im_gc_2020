@@ -93,7 +93,11 @@ namespace speechModality
                 }
                 else
                 {
-                    if (e.Result.Semantics.First().Value.Value.Equals("CREATE_EVENT"))
+                    if (e.Result.Semantics.First().Value.Value.Equals("THANKS"))
+                    {
+                        t.Speak("De nada, foi um prazer poder ajudar.");
+                    }
+                    else if (e.Result.Semantics.First().Value.Value.Equals("CREATE_EVENT"))
                     {
                         confirmationFlag = true;
                         prev_json = json;
@@ -174,12 +178,12 @@ namespace speechModality
                     {
                         confirmationFlag = true;
                         prev_json = json;
-                        if (e.Result.Semantics.ElementAt(2).Value.Value.Equals("TOMORROW"))
+                        if (e.Result.Semantics.ElementAt(1).Value.Value.Equals("TOMORROW"))
                         {
                              t.Speak("Pretende cancelar os eventos de amanhã?" );
                             
                         }
-                        else if (e.Result.Semantics.ElementAt(2).Value.Value.Equals("TODAY"))
+                        else if (e.Result.Semantics.ElementAt(1).Value.Value.Equals("TODAY"))
                         {
                             t.Speak("Pretende cancelar os eventos de hoje?");
                         }

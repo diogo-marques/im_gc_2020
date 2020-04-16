@@ -327,6 +327,7 @@ namespace AppGui
                     break;
                 case "NEXT_EVENT":
                     Events ev = getNextEvents(1);
+                    bool nextEvent = true;
                     if (ev.Items != null && ev.Items.Count > 0)
                     {
                         Console.WriteLine("Next event:");
@@ -338,8 +339,13 @@ namespace AppGui
                                 when = eventItem.Start.Date;
                             }
                             Console.WriteLine("{0} ({1})", eventItem.Summary, when);
+                            nextEvent = false;
                             t.Speak("Evento " + eventItem.Summary + " dia " + when.Split(' ')[0] +  "às " + when.Split(' ')[1]);
                         }
+                    }
+                    if (nextEvent)
+                    {
+                        t.Speak("Não tem eventos no futuro.");
                     }
                     break;
                 case "CANCEL_EVENT":
@@ -350,11 +356,17 @@ namespace AppGui
 
                     Console.WriteLine(eventID);
                     //String cancelDate = start2.ToString().Split(' ')[0]; // data dd/mm/yyyy
-                    String cancelDate = date2[0] + "/" + date2[1];  // data dd/mm
+                    //String cancelDate = date2.Split(' ')[0] + "/" + date2.Split(' ')[1];  // data dd/mm
+                    String cancelDate = start2.ToShortDateString();
+                    Console.WriteLine(cancelDate);
                     if (eventID != "NO_EVENT")
                     {
                         cancelEvent(eventID);
                         t.Speak("Evento " + json.recognized[1].ToString() + " no dia " + cancelDate + " cancelado.");
+                    }
+                    else
+                    {
+                        t.Speak("Não tem nenhum evento " + json.recognized[1].ToString() + " nesse hórario.");
                     }
                     
                     break;
